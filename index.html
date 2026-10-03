@@ -653,15 +653,32 @@
     @media (max-width: 768px) {
       header.app-header {
         flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
         padding: 16px;
         gap: 0;
       }
       .brand-group {
-        width: auto;
+        flex: 1;
+        min-width: 0;
         justify-content: flex-start;
+      }
+      .brand-info h1 {
+        font-size: 1.1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .brand-info p {
+        font-size: 0.7rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .menu-toggle {
         display: block;
+        margin-left: 12px;
       }
       .nav-menu {
         position: fixed;
@@ -713,7 +730,7 @@
       z-index: 1000;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 0;
     }
 
     .image-modal.active {
@@ -722,27 +739,45 @@
     }
 
     .image-modal-content {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: var(--radius-sm);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
     }
 
     .image-modal-close {
       position: absolute;
-      top: 20px;
-      right: 30px;
+      top: 15px;
+      right: 25px;
       color: #fff;
       font-size: 40px;
       font-weight: bold;
       cursor: pointer;
       transition: color 0.2s;
+      z-index: 1001;
     }
 
     .image-modal-close:hover {
       color: var(--accent-rose);
     }
+
+    .modal-nav {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      padding: 16px;
+      margin-top: -30px;
+      color: white;
+      font-weight: bold;
+      font-size: 32px;
+      transition: 0.3s ease;
+      user-select: none;
+      z-index: 1001;
+      background: rgba(0,0,0,0.3);
+      border-radius: 4px;
+    }
+    .modal-prev { left: 10px; }
+    .modal-next { right: 10px; }
+    .modal-nav:hover { background-color: rgba(0,0,0,0.8); color: var(--primary-light); }
 
     @keyframes fadeIn {
       from { opacity: 0; }
@@ -793,9 +828,9 @@
       </div>
       <div class="hero-slideshow">
         <!-- Using object-fit: contain to ensure full visibility -->
-        <img src="Gemini_Generated_Image_16q4d816q4d816q4.png" class="slide active" alt="Rice Disease Visual" onclick="openModal(this.src)" style="cursor: pointer;">
-        <img src="Gemini_Generated_Image_mzdm4ymzdm4ymzdm.png" class="slide" alt="Diagnostic Pipeline" onclick="openModal(this.src)" style="cursor: pointer;">
-        <img src="Gemini_Generated_Image_z7rs1xz7rs1xz7rs.png" class="slide" alt="Leaf Scanner" onclick="openModal(this.src)" style="cursor: pointer;">
+        <img src="Gemini_Generated_Image_16q4d816q4d816q4.png" class="slide active" alt="Rice Disease Visual" onclick="openGalleryModal(this.src, '.slide')" style="cursor: pointer;">
+        <img src="Gemini_Generated_Image_mzdm4ymzdm4ymzdm.png" class="slide" alt="Diagnostic Pipeline" onclick="openGalleryModal(this.src, '.slide')" style="cursor: pointer;">
+        <img src="Gemini_Generated_Image_z7rs1xz7rs1xz7rs.png" class="slide" alt="Leaf Scanner" onclick="openGalleryModal(this.src, '.slide')" style="cursor: pointer;">
       </div>
     </section>
 
@@ -875,25 +910,26 @@
         <h2>How to click the images of the rice leafs</h2>
       </div>
       <ul class="best-practices-list">
-        <li>Ensure the <strong>rice leaf blade</strong> is clearly in focus and fills the frame.</li>
-        <li>Use natural daylight without severe camera flash or dark shadows.</li>
-        <li>Capture both sides of diseased lesions when evident.</li>
-        <li>Avoid capturing hands, soil, tools, or non-rice plants in the background.</li>
-        <li>For best results, place the leaf on a flat, neutral background if possible, or hold it steady.</li>
+        <li><strong>Step 1:</strong> Open your Camera App settings and turn ON the <strong>"Save Location"</strong> or <strong>"Location Tags"</strong> setting. This ensures the coordinates are attached to your photos before you click them.</li>
+        <li><strong>Step 2:</strong> Ensure the <strong>rice leaf blade</strong> is clearly in focus and fills the frame.</li>
+        <li><strong>Step 3:</strong> Use natural daylight without severe camera flash or dark shadows.</li>
+        <li><strong>Step 4:</strong> Capture both sides of diseased lesions when evident.</li>
+        <li><strong>Step 5:</strong> Avoid capturing hands, soil, tools, or non-rice plants in the background.</li>
+        <li><strong>Step 6:</strong> For best results, place the leaf on a flat, neutral background if possible, or hold it steady.</li>
       </ul>
       
       <div style="margin-top: 32px;">
         <h3 style="margin-bottom: 16px; font-family: var(--font-heading); color: var(--primary-deep);">Sample Reference Images</h3>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px;">
-          <img src="SampleImages/IMG20260928075638.jpg" alt="Sample 1" class="sample-image" loading="lazy" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928075640_BURST000_COVER.jpg" alt="Sample 2" class="sample-image" loading="lazy" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928075913.jpg" alt="Sample 3" class="sample-image" loading="lazy" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928075927.jpg" alt="Sample 4" class="sample-image" loading="lazy" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928075931.jpg" alt="Sample 5" class="sample-image" loading="lazy" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928080127.jpg" alt="Sample 6" class="sample-image" loading="lazy" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928080449.jpg" alt="Sample 7" class="sample-image" loading="lazy" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928080517.jpg" alt="Sample 8" class="sample-image" loading="lazy" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928080649.jpg" alt="Sample 9" class="sample-image" loading="lazy" onclick="openModal(this.src)">
+          <img src="SampleImages/IMG20260928075638.jpg" alt="Sample 1" class="sample-image" loading="lazy" onclick="openGalleryModal(this.src, '.sample-image')">
+          <img src="SampleImages/IMG20260928075640_BURST000_COVER.jpg" alt="Sample 2" class="sample-image" loading="lazy" onclick="openGalleryModal(this.src, '.sample-image')">
+          <img src="SampleImages/IMG20260928075913.jpg" alt="Sample 3" class="sample-image" loading="lazy" onclick="openGalleryModal(this.src, '.sample-image')">
+          <img src="SampleImages/IMG20260928075927.jpg" alt="Sample 4" class="sample-image" loading="lazy" onclick="openGalleryModal(this.src, '.sample-image')">
+          <img src="SampleImages/IMG20260928075931.jpg" alt="Sample 5" class="sample-image" loading="lazy" onclick="openGalleryModal(this.src, '.sample-image')">
+          <img src="SampleImages/IMG20260928080127.jpg" alt="Sample 6" class="sample-image" loading="lazy" onclick="openGalleryModal(this.src, '.sample-image')">
+          <img src="SampleImages/IMG20260928080449.jpg" alt="Sample 7" class="sample-image" loading="lazy" onclick="openGalleryModal(this.src, '.sample-image')">
+          <img src="SampleImages/IMG20260928080517.jpg" alt="Sample 8" class="sample-image" loading="lazy" onclick="openGalleryModal(this.src, '.sample-image')">
+          <img src="SampleImages/IMG20260928080649.jpg" alt="Sample 9" class="sample-image" loading="lazy" onclick="openGalleryModal(this.src, '.sample-image')">
         </div>
       </div>
     </section>
@@ -919,8 +955,10 @@
 
   <!-- Image Lightbox Modal -->
   <div class="image-modal" id="imageModal" onclick="closeModal()">
-    <span class="image-modal-close">&times;</span>
-    <img class="image-modal-content" id="modalImage">
+    <span class="image-modal-close" onclick="closeModal()">&times;</span>
+    <span class="modal-nav modal-prev" onclick="prevModalImage(event)">&#10094;</span>
+    <img class="image-modal-content" id="modalImage" onclick="event.stopPropagation()">
+    <span class="modal-nav modal-next" onclick="nextModalImage(event)">&#10095;</span>
   </div>
 
   <script src="config.js"></script>
@@ -936,10 +974,42 @@
       document.getElementById('sidebarOverlay').classList.remove('active');
     }
 
-    // Lightbox Logic
-    function openModal(src) {
-      document.getElementById('modalImage').src = src;
+    // Lightbox Gallery Logic
+    let currentModalImages = [];
+    let currentModalIndex = 0;
+
+    function openGalleryModal(src, groupClass) {
+      const imgs = Array.from(document.querySelectorAll(groupClass));
+      if (imgs.length > 0) {
+        currentModalImages = imgs.map(img => img.src);
+        currentModalIndex = currentModalImages.indexOf(src);
+        if (currentModalIndex === -1) currentModalIndex = 0;
+      } else {
+        currentModalImages = [src];
+        currentModalIndex = 0;
+      }
+      updateModalImage();
       document.getElementById('imageModal').classList.add('active');
+    }
+
+    function updateModalImage() {
+      if (currentModalImages.length > 0) {
+        document.getElementById('modalImage').src = currentModalImages[currentModalIndex];
+      }
+    }
+
+    function prevModalImage(e) {
+      e.stopPropagation();
+      if (currentModalImages.length === 0) return;
+      currentModalIndex = (currentModalIndex - 1 + currentModalImages.length) % currentModalImages.length;
+      updateModalImage();
+    }
+
+    function nextModalImage(e) {
+      e.stopPropagation();
+      if (currentModalImages.length === 0) return;
+      currentModalIndex = (currentModalIndex + 1) % currentModalImages.length;
+      updateModalImage();
     }
 
     function closeModal() {
@@ -1011,7 +1081,16 @@
         }
         
         img.style.cursor = "pointer";
-        img.onclick = () => openModal(item.previewUrl);
+        // Setup image onclick to open the gallery, matching the dynamically created preview images
+        img.onclick = () => {
+          // Find all staged images
+          const containerImgs = Array.from(document.querySelectorAll('.preview-thumb-wrap img'));
+          currentModalImages = containerImgs.map(i => i.src);
+          currentModalIndex = currentModalImages.indexOf(img.src);
+          if (currentModalIndex === -1) currentModalIndex = 0;
+          updateModalImage();
+          document.getElementById('imageModal').classList.add('active');
+        };
 
         const rmBtn = document.createElement("button");
         rmBtn.className = "btn-remove-thumb";
