@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>RiceGuard AI 2.0</title>
+
+  <!-- Google Fonts for AI vibe -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      /* AI-Infused Green Theme */
+      --primary: #15803d;
+      --primary-dark: #14532d;
+      --primary-deep: #0f391b;
+      --primary-light: #22c55e;
+      --primary-soft: #dcfce7;
+      --primary-subtle: #f0fdf4;
+      --primary-glow: rgba(34, 197, 94, 0.4);
+      --accent-blue: #1d4ed8;
+      --accent-sky: #0ea5e9;
+      --accent-sky-soft: #f0f9ff;
+      --accent-amber: #f59e0b;
+      --accent-amber-soft: #fef3c7;
+      --accent-rose: #ef4444;
+      --accent-rose-soft: #fef2f2;
+      --surface: #ffffff;
+      --surface-glass: rgba(255, 255, 255, 0.85);
+      --border: rgba(21, 128, 61, 0.15);
+      --border-green: rgba(34, 197, 94, 0.3);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --shadow-sm: 0 2px 4px rgba(21, 128, 61, 0.05);
+      --shadow-md: 0 8px 24px rgba(21, 128, 61, 0.08);
+      --shadow-lg: 0 16px 40px rgba(21, 128, 61, 0.15);
+      --shadow-glow: 0 0 20px rgba(34, 197, 94, 0.2);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-pill: 9999px;
+
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-main);
+      background: radial-gradient(circle at 10% 20%, var(--primary-subtle) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, var(--primary-soft) 0%, transparent 40%),
+        #f8fafc;
+      background-attachment: fixed;
+      min-height: 100vh;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    .app-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 16px 20px;
+    }
+
+    header.app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 16px;
+      z-index: 90;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-logo-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-logo-icon svg {
+      width: 26px;
+      height: 26px;
+      stroke: #ffffff;
+      fill: none;
+    }
+
+    .brand-info h1 {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary-deep);
+      letter-spacing: -0.5px;
+    }
+
+    .brand-info p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-header {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      font-family: var(--font-body);
+      position: relative;
+      padding: 4px 0;
+    }
+
+    .btn-header:hover {
+      color: var(--primary-dark);
+    }
+
+    .btn-header::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .btn-header:hover::after {
+      width: 100%;
+    }
+
+    .card {
+      background: var(--surface-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-green);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 28px;
+      scroll-margin-top: 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
+      opacity: 0.5;
+    }
+
+    /* Hero Section Specific Styles */
+    .hero-section {
+      display: flex;
+      gap: 32px;
+      align-items: stretch;
+      padding: 32px;
+    }
+
+    .hero-content {
+      flex: 1.1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-content h2 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-deep);
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+      line-height: 1.2;
+    }
+
+    .hero-content p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .hero-slideshow {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      min-height: 280px;
+      box-shadow: inset 0 0 0 1px var(--border-green), var(--shadow-md);
+      background: #f1f5f9;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      /* FIXED IMAGE CUTOFF */
+      padding: 16px;
+      /* Slight padding inside */
+      opacity: 0;
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .card-header h2 {
+      font-family: var(--font-heading);
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--primary-deep);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .card-header p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      background: #f8fafc;
+      outline: none;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      color: var(--text-main);
+    }
+
+    .form-input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 4px var(--primary-soft);
+      background: #ffffff;
+    }
+
+    .form-input[readonly] {
+      background: #f1f5f9;
+      color: var(--text-muted);
+      cursor: not-allowed;
+      border-style: dashed;
+    }
+
+    .btn-text {
+      background: var(--primary-subtle);
+      border: 1px solid var(--border-green);
+      color: var(--primary-dark);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+
+    .btn-text:hover {
+      background: var(--primary-soft);
+      box-shadow: 0 2px 8px var(--primary-glow);
+    }
+
+    .btn-text-danger {
+      color: var(--accent-rose);
+      background: var(--accent-rose-soft);
+      border-color: rgba(239, 68, 68, 0.2);
+    }
+
+    .btn-text-danger:hover {
+      background: #fee2e2;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+    }
+
+    .upload-dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .upload-box {
+      border: 2px dashed var(--primary-light);
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 28px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+    }
+
+    .upload-box:hover {
+      border-color: var(--primary);
+      background: var(--primary-subtle);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .upload-box-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      color: #ffffff;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .upload-box.camera-box {
+      border-color: var(--accent-sky);
+    }
+
+    .upload-box.camera-box:hover {
+      border-color: var(--accent-blue);
+      background: var(--accent-sky-soft);
+    }
+
+    .upload-box.camera-box .upload-box-icon {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-sky));
+      box-shadow: 0 0 20px rgba(14, 165, 233, 0.3);
+    }
+
+    .upload-box h3 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--primary-deep);
+    }
+
+    .upload-box p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .btn-upload-master {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #ffffff;
+      border: none;
+      padding: 18px 24px;
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 24px;
+      box-shadow: 0 10px 30px rgba(21, 128, 61, 0.3);
+      letter-spacing: 0.5px;
+    }
+
+    .btn-upload-master:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(21, 128, 61, 0.4);
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+    }
+
+    .btn-upload-master:disabled {
+      background: #cbd5e1;
+      cursor: not-allowed;
+      box-shadow: none;
+      color: #94a3b8;
+    }
+
+    .staged-gallery-section {
+      margin-bottom: 24px;
+    }
+
+    .staged-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .staged-count-badge {
+      font-weight: 700;
+      color: var(--primary-dark);
+      background: var(--primary-soft);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      box-shadow: inset 0 0 0 1px var(--primary-light);
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
+    }
+
+    .preview-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      transition: transform 0.2s;
+    }
+
+    .preview-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .preview-thumb-wrap {
+      width: 100%;
+      height: 110px;
+      background: #f8fafc;
+      position: relative;
+      padding: 4px;
+    }
+
+    .preview-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .btn-remove-thumb {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(15, 23, 42, 0.7);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      transition: all 0.2s;
+    }
+
+    .btn-remove-thumb:hover {
+      background: var(--accent-rose);
+      border-color: var(--accent-rose);
+      transform: scale(1.1);
+    }
+
+    .preview-info {
+      padding: 12px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border-top: 1px solid var(--border);
+    }
+
+    .upload-progress-box {
+      margin-top: 24px;
+      display: none;
+      background: var(--primary-subtle);
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-green);
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(34, 197, 94, 0.2);
+      border-radius: var(--radius-pill);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary-light), var(--primary));
+      border-radius: var(--radius-pill);
+      transition: width 0.3s ease;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .result-alert {
+      margin-top: 24px;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      display: none;
+      font-weight: 500;
+    }
+
+    .result-alert.success {
+      background: var(--primary-soft);
+      border: 1px solid var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    .result-alert.error {
+      background: var(--accent-rose-soft);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #991b1b;
+    }
+
+    .best-practices-list {
+      list-style: none;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      line-height: 1.8;
+    }
+
+    .best-practices-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 12px;
+    }
+
+    .best-practices-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 8px;
+      height: 8px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--primary-glow);
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        flex-direction: column;
+        padding: 24px;
+      }
+
+      .hero-slideshow {
+        min-height: 220px;
+      }
+
+      .upload-dual-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <a href="#" class="brand-group">
+        <div class="brand-logo-icon" style="background: transparent; overflow: hidden;">
+          <img src="assets/ricelogo.jpg" alt="RiceGuard AI Logo" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="brand-info">
+          <h1>RiceGuard AI 2.0</h1>
+          <p>Data Collection Portal</p>
+        </div>
+      </a>
+      <nav class="nav-menu">
+        <a href="#about" class="btn-header">Why Samples?</a>
+        <a href="#upload" class="btn-header">Upload Data</a>
+        <a href="#guide" class="btn-header">Photo Guide</a>
+        <a href="#contact" class="btn-header">Contact</a>
+      </nav>
+    </header>
+
+    <!-- HERO SECTION: Why we need samples + Slideshow -->
+    <section id="about" class="card hero-section">
+      <div class="hero-content">
+        <h2>Why we need samples?</h2>
+        <p>
+          I wanted to train and test the ml learning model that detects the disease of rice leafs and tells which
+          disease it has, what fertilizer it needs, severity test show the stage of disease it is in early stage or last
+          stage where you need immediate action, culture advice, model confidence and the heatmap of disease and the
+          real image as well. So I will need data. By using your help we can reduce the loss of farmers and diagnose the
+          disease in its early stage and act quickly to save the crops.
+        </p>
+      </div>
+      <div class="hero-slideshow">
+        <!-- Using object-fit: contain to ensure full visibility -->
+        <img src="Gemini_Generated_Image_16q4d816q4d816q4.png" class="slide active" alt="Rice Disease Visual">
+        <img src="Gemini_Generated_Image_mzdm4ymzdm4ymzdm.png" class="slide" alt="Diagnostic Pipeline">
+        <img src="Gemini_Generated_Image_z7rs1xz7rs1xz7rs.png" class="slide" alt="Leaf Scanner">
+      </div>
+    </section>
+
+    <!-- UPLOAD SECTION -->
+    <section id="upload" class="card">
+      <div class="card-header">
+        <h2>Data Collection Form</h2>
+        <p>Please provide the details below and upload images of rice leaves to contribute to the dataset.</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="villageName">Village Name <span style="color:var(--accent-rose)">*</span></label>
+        <input type="text" id="villageName" class="form-input" placeholder="e.g. Rampur" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="riceName">Rice Variety Name <span
+            style="color:var(--accent-rose)">*</span></label>
+        <input type="text" id="riceName" class="form-input" placeholder="e.g. Basmati, IR64" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="studentName">Student Name (Optional)</label>
+        <input type="text" id="studentName" class="form-input" placeholder="Your full name">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Live Location <span style="color:var(--accent-rose)">*</span>
+          <button type="button" class="btn-text" onclick="fetchLocation()">Get Location</button>
+        </label>
+        <input type="text" id="locationCoords" class="form-input"
+          placeholder="Click 'Get Location' to capture coordinates" readonly required>
+      </div>
+
+      <div class="upload-dual-grid">
+        <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+          <div class="upload-box-icon">
+            <!-- Updated Upload Icon -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          </div>
+          <h3>Upload File</h3>
+          <p>Choose from gallery</p>
+          <input type="file" id="fileInput" multiple accept="image/*">
+        </div>
+        <div class="upload-box camera-box" onclick="document.getElementById('cameraInput').click()">
+          <div class="upload-box-icon">
+            <!-- Updated Camera/Scanner Icon -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+              <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+              <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+              <path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </div>
+          <h3>Camera</h3>
+          <p>Take live photo</p>
+          <input type="file" id="cameraInput" accept="image/*" capture="environment">
+        </div>
+      </div>
+
+      <div class="staged-gallery-section" id="stagedSection" style="display:none;">
+        <div class="staged-header">
+          <div class="staged-count-badge" id="stagedCountBadge">0 Photos</div>
+          <button type="button" class="btn-text btn-text-danger" onclick="clearStagedFiles()">Clear All</button>
+        </div>
+        <div class="preview-grid" id="previewGrid"></div>
+      </div>
+
+      <button type="button" class="btn-upload-master" id="uploadBtn" onclick="startUpload()">Submit Data</button>
+
+      <div class="upload-progress-box" id="progressBox">
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+        <div class="progress-info">
+          <span id="statusMessage">Preparing...</span>
+          <span id="progressPercentage">0%</span>
+        </div>
+      </div>
+      <div class="result-alert" id="resultAlert"></div>
+    </section>
+
+    <!-- GUIDE SECTION -->
+    <section id="guide" class="card">
+      <div class="card-header">
+        <h2>How to click the images of the rice leafs</h2>
+      </div>
+      <ul class="best-practices-list">
+        <li>Ensure the <strong>rice leaf blade</strong> is clearly in focus and fills the frame.</li>
+        <li>Use natural daylight without severe camera flash or dark shadows.</li>
+        <li>Capture both sides of diseased lesions when evident.</li>
+        <li>Avoid capturing hands, soil, tools, or non-rice plants in the background.</li>
+        <li>For best results, place the leaf on a flat, neutral background if possible, or hold it steady.</li>
+      </ul>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="card">
+      <div class="card-header">
+        <h2>Contact & Support</h2>
+      </div>
+      <p style="margin-bottom: 12px; font-size: 0.95rem; color: var(--text-muted);">If you are getting problems while
+        uploading the images or any other issue then I will be able to help you. Feel free to reach out to me:</p>
+      <p style="margin-bottom: 6px;">📞 <strong>Phone:</strong> <a href="tel:7410109645"
+          style="color:var(--primary-dark); font-weight:600; text-decoration:none;">7410109645</a></p>
+      <p>✉️ <strong>Email:</strong> <a href="mailto:bolkesujal@gmail.com"
+          style="color:var(--primary-dark); font-weight:600; text-decoration:none;">bolkesujal@gmail.com</a></p>
+    </section>
+
+    <footer
+      style="text-align: center; padding: 24px 10px; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border); margin-top: 36px;">
+      <p>RiceGuard AI 2.0 Data Collection Portal &copy; 2026</p>
+    </footer>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    // Slideshow Logic
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    if (slides.length > 0) {
+      setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }, 3500); // Change image every 3.5 seconds
+    }
+
+    // File Upload Logic
+    let stagedFiles = [];
+    let isUploading = false;
+    let locationData = null;
+
+    document.getElementById("fileInput").addEventListener("change", handleFilesSelected);
+    document.getElementById("cameraInput").addEventListener("change", handleFilesSelected);
+
+    function handleFilesSelected(e) {
+      const files = Array.from(e.target.files);
+      if (!files.length) return;
+
+      files.forEach(file => {
+        if (!stagedFiles.some(f => f.file.name === file.name && f.file.size === file.size)) {
+          stagedFiles.push({
+            id: 'file_' + Math.random().toString(36).substr(2, 9),
+            file: file,
+            status: 'pending'
+          });
+        }
+      });
+      e.target.value = "";
+      renderPreviews();
+    }
+
+    function renderPreviews() {
+      const section = document.getElementById("stagedSection");
+      const grid = document.getElementById("previewGrid");
+      const badge = document.getElementById("stagedCountBadge");
+
+      if (!stagedFiles.length) {
+        section.style.display = "none";
+        return;
+      }
+      section.style.display = "block";
+      badge.innerText = `${stagedFiles.length} Photo(s)`;
+      grid.innerHTML = "";
+
+      stagedFiles.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "preview-card";
+
+        const thumb = document.createElement("div");
+        thumb.className = "preview-thumb-wrap";
+        const img = document.createElement("img");
+
+        if (!item.previewUrl) {
+          const reader = new FileReader();
+          reader.onload = e => { item.previewUrl = e.target.result; img.src = item.previewUrl; };
+          reader.readAsDataURL(item.file);
+        } else {
+          img.src = item.previewUrl;
+        }
+
+        const rmBtn = document.createElement("button");
+        rmBtn.className = "btn-remove-thumb";
+        rmBtn.innerHTML = `
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        `;
+        rmBtn.onclick = () => { if (!isUploading) { stagedFiles = stagedFiles.filter(f => f.id !== item.id); renderPreviews(); } };
+
+        thumb.appendChild(img);
+        if (!isUploading) thumb.appendChild(rmBtn);
+
+        const info = document.createElement("div");
+        info.className = "preview-info";
+        info.innerHTML = `
+          <div>${item.file.name}</div>
+          <div style="font-size:0.65rem; color:#64748b; margin-top:4px;" id="status_${item.id}">${item.status}</div>
+        `;
+
+        card.appendChild(thumb);
+        card.appendChild(info);
+        grid.appendChild(card);
+      });
+    }
+
+    function clearStagedFiles() {
+      if (isUploading) return;
+      stagedFiles = [];
+      renderPreviews();
+    }
+
+    function fetchLocation() {
+      const locInput = document.getElementById("locationCoords");
+      locInput.value = "Fetching location...";
+
+      if (!navigator.geolocation) {
+        locInput.value = "Geolocation is not supported by your browser";
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          locationData = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy
+          };
+          locInput.value = `${locationData.latitude.toFixed(5)}, ${locationData.longitude.toFixed(5)}`;
+        },
+        (error) => {
+          locInput.value = `Location error: ${error.message}`;
+          locationData = null;
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      );
+    }
+
+    function getBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve({ base64: reader.result, type: file.type });
+        reader.onerror = error => reject(error);
+      });
+    }
+
+    async function startUpload() {
+      const villageName = document.getElementById("villageName").value.trim();
+      const riceName = document.getElementById("riceName").value.trim();
+      const studentName = document.getElementById("studentName").value.trim();
+      const coords = document.getElementById("locationCoords").value.trim();
+
+      if (!villageName || !riceName) {
+        alert("Please provide Village Name and Rice Variety Name.");
+        return;
+      }
+      if (!coords || !locationData) {
+        alert("Please capture live location first by clicking 'Get Location'.");
+        return;
+      }
+      if (!stagedFiles.length) {
+        alert("Please select at least one photo.");
+        return;
+      }
+
+      isUploading = true;
+      document.getElementById("uploadBtn").disabled = true;
+      document.getElementById("progressBox").style.display = "block";
+
+      let successCount = 0;
+
+      for (let i = 0; i < stagedFiles.length; i++) {
+        const item = stagedFiles[i];
+        item.status = "uploading...";
+        document.getElementById(`status_${item.id}`).innerText = "uploading...";
+
+        document.getElementById("statusMessage").innerText = `Uploading photo ${i + 1} of ${stagedFiles.length}...`;
+        document.getElementById("progressBarFill").style.width = `${((i) / stagedFiles.length) * 100}%`;
+        document.getElementById("progressPercentage").innerText = `${Math.round(((i) / stagedFiles.length) * 100)}%`;
+
+        try {
+          const { base64, type } = await getBase64(item.file);
+
+          const payload = {
+            base64Data: base64,
+            fileName: item.file.name,
+            mimeType: type,
+            villageName: villageName,
+            riceName: riceName,
+            studentName: studentName,
+            location: locationData
+          };
+
+          const scriptUrl = (typeof CONFIG !== 'undefined' && CONFIG.SCRIPT_URL) ? CONFIG.SCRIPT_URL : "YOUR_SCRIPT_URL_HERE";
+
+          if (scriptUrl === "YOUR_SCRIPT_URL_HERE") {
+            await new Promise(r => setTimeout(r, 800));
+            item.status = "success ✅";
+            successCount++;
+          } else {
+            const res = await fetch(scriptUrl, {
+              method: "POST",
+              body: JSON.stringify(payload),
+              headers: { "Content-Type": "text/plain;charset=utf-8" }
+            });
+            const result = await res.json();
+            if (result.success) {
+              item.status = "success ✅";
+              successCount++;
+            } else {
+              throw new Error("Upload failed");
+            }
+          }
+          document.getElementById(`status_${item.id}`).innerText = item.status;
+          document.getElementById(`status_${item.id}`).style.color = "var(--primary-dark)";
+
+        } catch (e) {
+          console.error(e);
+          item.status = "error ❌";
+          document.getElementById(`status_${item.id}`).innerText = item.status;
+          document.getElementById(`status_${item.id}`).style.color = "var(--accent-rose)";
+        }
+      }
+
+      document.getElementById("progressBarFill").style.width = "100%";
+      document.getElementById("progressPercentage").innerText = "100%";
+      document.getElementById("statusMessage").innerText = "Finished";
+
+      isUploading = false;
+      document.getElementById("uploadBtn").disabled = false;
+
+      const alertBox = document.getElementById("resultAlert");
+      alertBox.style.display = "block";
+      if (successCount === stagedFiles.length) {
+        alertBox.className = "result-alert success";
+        alertBox.innerHTML = `<strong>Success!</strong> ${successCount} photos uploaded successfully.`;
+      } else {
+        alertBox.className = "result-alert error";
+        alertBox.innerHTML = `<strong>Warning!</strong> Only ${successCount} of ${stagedFiles.length} photos uploaded.`;
+      }
+    }
+  </script>
+</body>
+
+</html>
