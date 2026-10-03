@@ -95,8 +95,12 @@ function doPost(e) {
     var fileName = params.fileName || ("rice_leaf_" + new Date().getTime() + ".jpg");
     var mimeType = params.mimeType || "image/jpeg";
     var villageName = params.villageName || "Unknown Village";
+    var riceName = params.riceName || "Unknown Rice";
+    var studentName = params.studentName || "";
     var surveyorName = params.surveyorName || "";
     var notes = params.notes || "";
+    var location = params.location || null;
+    var batchId = params.batchId || new Date().getTime().toString();
 
     if (!base64Data) {
       throw new Error("base64Data is missing in the payload.");
@@ -106,7 +110,11 @@ function doPost(e) {
     var masterFolder = DriveApp.getFolderById(MASTER_FOLDER_ID);
 
     // Clean and sanitize the village name
-    var cleanVillageName = villageName.trim().replace(/[\\/:*?"<>|]/g, "_");
+    var rawVillageName = villageName.trim().replace(/[\\/:*?"<>|]/g, "_");
+    
+    // Capitalize the first letter of each word to ensure consistent folder matching
+    var cleanVillageName = rawVillageName.toLowerCase().replace(/\b\w/g, function(l) { return l.toUpperCase(); });
+
     if (cleanVillageName === "") {
       cleanVillageName = "Unknown Village";
     }
@@ -132,12 +140,29 @@ function doPost(e) {
     var createdFile = villageFolder.createFile(blob);
 
     // Attach descriptive metadata for easy search and cataloging
+    var studentOrSurveyor = studentName ? studentName : surveyorName;
     var fileDescription = "Rice Guard AI Data Collection Submission\n" +
                           "Village: " + cleanVillageName + "\n" +
-                          (surveyorName ? "Surveyor: " + surveyorName + "\n" : "") +
+                          "Rice Variety: " + riceName + "\n" +
+                          (studentOrSurveyor ? "Student/Surveyor: " + studentOrSurveyor + "\n" : "") +
+                          (location ? "Location: " + location.latitude + ", " + location.longitude + "\n" : "") +
                           (notes ? "Notes: " + notes + "\n" : "") +
                           "Upload Timestamp: " + new Date().toISOString();
     createdFile.setDescription(fileDescription);
+
+    // Also store user info in a .txt file inside the folder (one per batch)
+    var txtFileName = "Submission_Info_" + batchId + ".txt";
+    var existingTxtFiles = villageFolder.getFilesByName(txtFileName);
+    if (!existingTxtFiles.hasNext()) {
+      var infoContent = "Rice Guard AI Data Collection Submission\n" +
+                        "----------------------------------------\n" +
+                        "Village Name: " + cleanVillageName + "\n" +
+                        "Rice Variety Name: " + riceName + "\n" +
+                        "Student/Surveyor Name: " + (studentOrSurveyor || "N/A") + "\n" +
+                        "Location: " + (location ? location.latitude + ", " + location.longitude + " (Accuracy: " + location.accuracy + "m)" : "N/A") + "\n" +
+                        "Upload Timestamp: " + new Date().toISOString() + "\n";
+      villageFolder.createFile(txtFileName, infoContent, "text/plain");
+    }
 
     // Return JSON success response
     var result = {

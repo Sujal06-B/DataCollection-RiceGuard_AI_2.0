@@ -340,7 +340,7 @@
 
     .upload-dual-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 16px;
       margin-bottom: 24px;
     }
@@ -669,9 +669,9 @@
       </div>
       <div class="hero-slideshow">
         <!-- Using object-fit: contain to ensure full visibility -->
-        <img src="Gemini_Generated_Image_16q4d816q4d816q4.png" class="slide active" alt="Rice Disease Visual">
-        <img src="Gemini_Generated_Image_mzdm4ymzdm4ymzdm.png" class="slide" alt="Diagnostic Pipeline">
-        <img src="Gemini_Generated_Image_z7rs1xz7rs1xz7rs.png" class="slide" alt="Leaf Scanner">
+        <img src="assets/gemini_generated_image_16q4d816q4d816q4.webp" class="slide active" alt="Rice Disease Visual">
+        <img src="assets/gemini_generated_image_mzdm4ymzdm4ymzdm.webp" class="slide" alt="Diagnostic Pipeline">
+        <img src="assets/gemini_generated_image_z7rs1xz7rs1xz7rs.webp" class="slide" alt="Leaf Scanner">
       </div>
     </section>
 
@@ -720,22 +720,6 @@
           <h3>Upload File</h3>
           <p>Choose from gallery</p>
           <input type="file" id="fileInput" multiple accept="image/*">
-        </div>
-        <div class="upload-box camera-box" onclick="document.getElementById('cameraInput').click()">
-          <div class="upload-box-icon">
-            <!-- Updated Camera/Scanner Icon -->
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
-              <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
-              <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
-              <path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
-              <circle cx="12" cy="12" r="3"></circle>
-            </svg>
-          </div>
-          <h3>Camera</h3>
-          <p>Take live photo</p>
-          <input type="file" id="cameraInput" accept="image/*" capture="environment">
         </div>
       </div>
 
@@ -813,7 +797,6 @@
     let locationData = null;
 
     document.getElementById("fileInput").addEventListener("change", handleFilesSelected);
-    document.getElementById("cameraInput").addEventListener("change", handleFilesSelected);
 
     function handleFilesSelected(e) {
       const files = Array.from(e.target.files);
@@ -949,6 +932,7 @@
       document.getElementById("progressBox").style.display = "block";
 
       let successCount = 0;
+      const batchId = new Date().getTime().toString();
 
       for (let i = 0; i < stagedFiles.length; i++) {
         const item = stagedFiles[i];
@@ -969,7 +953,8 @@
             villageName: villageName,
             riceName: riceName,
             studentName: studentName,
-            location: locationData
+            location: locationData,
+            batchId: batchId
           };
 
           const scriptUrl = (typeof CONFIG !== 'undefined' && CONFIG.SCRIPT_URL) ? CONFIG.SCRIPT_URL : "YOUR_SCRIPT_URL_HERE";
