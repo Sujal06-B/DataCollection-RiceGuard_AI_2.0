@@ -3,9 +3,10 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>RiceGuard AI 2.0</title>
   <link rel="icon" type="image/jpeg" href="assets/ricelogo.jpg">
+  <link rel="apple-touch-icon" href="assets/ricelogo.jpg">
 
   <!-- Google Fonts for AI vibe -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -153,7 +154,7 @@
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0,0,0,0.5);
-      z-index: 95;
+      z-index: 89;
       opacity: 0;
       transition: opacity 0.3s;
     }
@@ -623,6 +624,20 @@
       margin-bottom: 12px;
     }
 
+    .sample-image {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s;
+    }
+    
+    .sample-image:hover {
+      transform: scale(1.05);
+    }
+
     .best-practices-list li::before {
       content: '';
       position: absolute;
@@ -870,15 +885,15 @@
       <div style="margin-top: 32px;">
         <h3 style="margin-bottom: 16px; font-family: var(--font-heading); color: var(--primary-deep);">Sample Reference Images</h3>
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px;">
-          <img src="SampleImages/IMG20260928075638.jpg" alt="Sample 1" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px; cursor: pointer; box-shadow: var(--shadow-sm);" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928075640_BURST000_COVER.jpg" alt="Sample 2" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px; cursor: pointer; box-shadow: var(--shadow-sm);" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928075913.jpg" alt="Sample 3" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px; cursor: pointer; box-shadow: var(--shadow-sm);" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928075927.jpg" alt="Sample 4" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px; cursor: pointer; box-shadow: var(--shadow-sm);" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928075931.jpg" alt="Sample 5" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px; cursor: pointer; box-shadow: var(--shadow-sm);" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928080127.jpg" alt="Sample 6" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px; cursor: pointer; box-shadow: var(--shadow-sm);" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928080449.jpg" alt="Sample 7" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px; cursor: pointer; box-shadow: var(--shadow-sm);" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928080517.jpg" alt="Sample 8" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px; cursor: pointer; box-shadow: var(--shadow-sm);" onclick="openModal(this.src)">
-          <img src="SampleImages/IMG20260928080649.jpg" alt="Sample 9" style="width: 100%; height: 100px; object-fit: cover; border-radius: 8px; cursor: pointer; box-shadow: var(--shadow-sm);" onclick="openModal(this.src)">
+          <img src="SampleImages/IMG20260928075638.jpg" alt="Sample 1" class="sample-image" loading="lazy" onclick="openModal(this.src)">
+          <img src="SampleImages/IMG20260928075640_BURST000_COVER.jpg" alt="Sample 2" class="sample-image" loading="lazy" onclick="openModal(this.src)">
+          <img src="SampleImages/IMG20260928075913.jpg" alt="Sample 3" class="sample-image" loading="lazy" onclick="openModal(this.src)">
+          <img src="SampleImages/IMG20260928075927.jpg" alt="Sample 4" class="sample-image" loading="lazy" onclick="openModal(this.src)">
+          <img src="SampleImages/IMG20260928075931.jpg" alt="Sample 5" class="sample-image" loading="lazy" onclick="openModal(this.src)">
+          <img src="SampleImages/IMG20260928080127.jpg" alt="Sample 6" class="sample-image" loading="lazy" onclick="openModal(this.src)">
+          <img src="SampleImages/IMG20260928080449.jpg" alt="Sample 7" class="sample-image" loading="lazy" onclick="openModal(this.src)">
+          <img src="SampleImages/IMG20260928080517.jpg" alt="Sample 8" class="sample-image" loading="lazy" onclick="openModal(this.src)">
+          <img src="SampleImages/IMG20260928080649.jpg" alt="Sample 9" class="sample-image" loading="lazy" onclick="openModal(this.src)">
         </div>
       </div>
     </section>

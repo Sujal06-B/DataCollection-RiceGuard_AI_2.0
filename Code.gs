@@ -15,7 +15,7 @@
  * 2. Open that folder and copy the Folder ID from the address bar URL:
  *    https://drive.google.com/drive/folders/PASTE_THIS_PART_HERE
  * 3. Replace "PASTE_YOUR_FOLDER_ID_HERE" below with your copied Folder ID.
- * 4. Click the blue 'Deploy' button -> 'New deployment'.
+ * 4. Click the blue 'Deploy' button -> 'New adeployment'.
  * 5. Select type 'Web app'.
  * 6. Set Description: "Rice Guard AI v2.4"
  * 7. Set 'Execute as': "Me (your email)"
