@@ -857,22 +857,26 @@
         </svg>
       </div>
       <nav class="nav-menu" id="navMenu">
-        <a href="#about" class="btn-header" onclick="closeSidebar()">Why Samples?</a>
-        <a href="#upload" class="btn-header" onclick="closeSidebar()">Upload Data</a>
-        <a href="#guide" class="btn-header" onclick="closeSidebar()">Photo Guide</a>
-        <a href="#contact" class="btn-header" onclick="closeSidebar()">Contact</a>
+        <select id="languageSelect" onchange="changeLanguage(this.value)" style="padding: 6px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface-glass); color: var(--text-main); font-family: var(--font-body); font-weight: 600; cursor: pointer; outline: none; box-shadow: var(--shadow-sm);">
+          <option value="en">English</option>
+          <option value="mr">मराठी</option>
+        </select>
+        <a href="#about" class="btn-header" onclick="closeSidebar()" data-i18n="navAbout">Why Samples?</a>
+        <a href="#upload" class="btn-header" onclick="closeSidebar()" data-i18n="navUpload">Upload Data</a>
+        <a href="#guide" class="btn-header" onclick="closeSidebar()" data-i18n="navGuide">Photo Guide</a>
+        <a href="#contact" class="btn-header" onclick="closeSidebar()" data-i18n="navContact">Contact</a>
       </nav>
     </header>
 
     <!-- HERO SECTION: Why we to add need samples + Slideshow -->
     <section id="about" class="card hero-section">
       <div class="hero-content">
-        <h2>Why we need samples?</h2>
-        <p>
-          We are building a smart AI tool to help farmers quickly detect rice leaf diseases. 
-          By simply taking a photo, farmers will be able to see exactly what disease is affecting their crop, 
-          how severe it is, and what treatments or fertilizers they need. 
-          To make this tool accurate, we need your help collecting real-world photos of rice leaves. 
+        <h2 data-i18n="heroTitle">Why we need samples?</h2>
+        <p data-i18n="heroDesc">
+          We are building a smart AI tool to help farmers quickly detect rice leaf diseases.
+          By simply taking a photo, farmers will be able to see exactly what disease is affecting their crop,
+          how severe it is, and what treatments or fertilizers they need.
+          To make this tool accurate, we need your help collecting real-world photos of rice leaves.
           With your contribution, we can empower farmers to catch diseases early, act fast, and save their harvests.
         </p>
       </div>
@@ -890,38 +894,38 @@
     <!-- UPLOAD SECTION -->
     <section id="upload" class="card">
       <div class="card-header">
-        <h2>Data Collection Form</h2>
-        <p>
+        <h2 data-i18n="formTitle">Data Collection Form</h2>
+        <p data-i18n="formDesc">
           Please provide the details below and upload images of rice leaves to
           contribute to the dataset.
         </p>
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="villageName">Village Name
+        <label class="form-label" for="villageName"><span data-i18n="labelVillage">Village Name</span>
           <span style="color: var(--accent-rose)">*</span></label>
-        <input type="text" id="villageName" class="form-input" placeholder="e.g. Rampur" required />
+        <input type="text" id="villageName" class="form-input" placeholder="e.g. Rampur" data-i18n-placeholder="placeholderVillage" required />
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="riceName">Rice Variety Name
+        <label class="form-label" for="riceName"><span data-i18n="labelRice">Rice Variety Name</span>
           <span style="color: var(--accent-rose)">*</span></label>
-        <input type="text" id="riceName" class="form-input" placeholder="e.g. Basmati, IR64" required />
+        <input type="text" id="riceName" class="form-input" placeholder="e.g. Basmati, IR64" data-i18n-placeholder="placeholderRice" required />
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="studentName">Student Name (Optional)</label>
-        <input type="text" id="studentName" class="form-input" placeholder="Your full name" />
+        <label class="form-label" for="studentName" data-i18n="labelStudent">Student Name (Optional)</label>
+        <input type="text" id="studentName" class="form-input" placeholder="Your full name" data-i18n-placeholder="placeholderStudent" />
       </div>
 
       <div class="form-group">
-        <label class="form-label">Live Location <span style="color: var(--accent-rose)">*</span>
-          <button type="button" class="btn-text" onclick="fetchLocation()">
+        <label class="form-label"><span data-i18n="labelLocation">Live Location</span> <span style="color: var(--accent-rose)">*</span>
+          <button type="button" class="btn-text" onclick="fetchLocation()" data-i18n="btnGetLocation">
             Get Location
           </button>
         </label>
         <input type="text" id="locationCoords" class="form-input"
-          placeholder="Click 'Get Location' to capture coordinates" readonly required />
+          placeholder="Click 'Get Location' to capture coordinates" data-i18n-placeholder="placeholderLocation" readonly required />
       </div>
 
       <div class="upload-dual-grid">
@@ -935,8 +939,8 @@
               <line x1="12" y1="3" x2="12" y2="15"></line>
             </svg>
           </div>
-          <h3>Upload File</h3>
-          <p>Choose from gallery</p>
+          <h3 data-i18n="uploadFileTitle">Upload File</h3>
+          <p data-i18n="uploadFileDesc">Choose from gallery</p>
           <input type="file" id="fileInput" multiple accept="image/*" />
         </div>
       </div>
@@ -944,14 +948,14 @@
       <div class="staged-gallery-section" id="stagedSection" style="display: none">
         <div class="staged-header">
           <div class="staged-count-badge" id="stagedCountBadge">0 Photos</div>
-          <button type="button" class="btn-text btn-text-danger" onclick="clearStagedFiles()">
+          <button type="button" class="btn-text btn-text-danger" onclick="clearStagedFiles()" data-i18n="btnClearAll">
             Clear All
           </button>
         </div>
         <div class="preview-grid" id="previewGrid"></div>
       </div>
 
-      <button type="button" class="btn-upload-master" id="uploadBtn" onclick="startUpload()">
+      <button type="button" class="btn-upload-master" id="uploadBtn" onclick="startUpload()" data-i18n="btnSubmit">
         Submit Data
       </button>
 
@@ -960,7 +964,7 @@
           <div class="progress-bar-fill" id="progressBarFill"></div>
         </div>
         <div class="progress-info">
-          <span id="statusMessage">Preparing...</span>
+          <span id="statusMessage" data-i18n="statusPreparing">Preparing...</span>
           <span id="progressPercentage">0%</span>
         </div>
       </div>
@@ -970,40 +974,40 @@
     <!-- GUIDE SECTION -->
     <section id="guide" class="card">
       <div class="card-header">
-        <h2>How to click the images of the rice leafs</h2>
+        <h2 data-i18n="guideTitle">How to click the images of the rice leafs</h2>
       </div>
       <ul class="best-practices-list">
-        <li>
+        <li data-i18n="guideStep1">
           <strong>Step 1:</strong> Open your Camera App settings and turn ON
           the <strong>"Save Location"</strong> or
           <strong>"Location Tags"</strong> setting. This ensures the
           coordinates are attached to your photos before you click them.
         </li>
-        <li>
+        <li data-i18n="guideStep2">
           <strong>Step 2:</strong> Ensure the
           <strong>rice leaf blade</strong> is clearly in focus and fills the
           frame.
         </li>
-        <li>
+        <li data-i18n="guideStep3">
           <strong>Step 3:</strong> Use natural daylight without severe camera
           flash or dark shadows.
         </li>
-        <li>
+        <li data-i18n="guideStep4">
           <strong>Step 4:</strong> Capture both sides of diseased lesions when
           evident.
         </li>
-        <li>
+        <li data-i18n="guideStep5">
           <strong>Step 5:</strong> Avoid capturing hands, soil, tools, or
           non-rice plants in the background.
         </li>
-        <li>
+        <li data-i18n="guideStep6">
           <strong>Step 6:</strong> For best results, place the leaf on a flat,
           neutral background if possible, or hold it steady.
         </li>
       </ul>
 
       <div style="margin-top: 32px">
-        <h3 style="
+        <h3 data-i18n="guideSample" style="
               margin-bottom: 16px;
               font-family: var(--font-heading);
               color: var(--primary-deep);
@@ -1040,9 +1044,9 @@
     <!-- CONTACT SECTION -->
     <section id="contact" class="card">
       <div class="card-header">
-        <h2>Contact & Support</h2>
+        <h2 data-i18n="contactTitle">Contact & Support</h2>
       </div>
-      <p style="
+      <p data-i18n="contactDesc" style="
             margin-bottom: 12px;
             font-size: 0.95rem;
             color: var(--text-muted);
@@ -1076,7 +1080,7 @@
           border-top: 1px solid var(--border);
           margin-top: 36px;
         ">
-      <p>RiceGuard AI 2.0 Data Collection Portal &copy; 2026</p>
+      <p data-i18n="footerText">RiceGuard AI 2.0 Data Collection Portal &copy; 2026</p>
     </footer>
   </div>
 
@@ -1411,6 +1415,94 @@
         alertBox.className = "result-alert error";
         alertBox.innerHTML = `<strong>Warning!</strong> Only ${successCount} of ${stagedFiles.length} photos uploaded.`;
       }
+    }
+
+    const translations = {
+      en: {
+        navAbout: "Why Samples?",
+        navUpload: "Upload Data",
+        navGuide: "Photo Guide",
+        navContact: "Contact",
+        heroTitle: "Why we need samples?",
+        heroDesc: "We are building a smart AI tool to help farmers quickly detect rice leaf diseases. By simply taking a photo, farmers will be able to see exactly what disease is affecting their crop, how severe it is, and what treatments or fertilizers they need. To make this tool accurate, we need your help collecting real-world photos of rice leaves. With your contribution, we can empower farmers to catch diseases early, act fast, and save their harvests.",
+        formTitle: "Data Collection Form",
+        formDesc: "Please provide the details below and upload images of rice leaves to contribute to the dataset.",
+        labelVillage: "Village Name",
+        placeholderVillage: "e.g. Rampur",
+        labelRice: "Rice Variety Name",
+        placeholderRice: "e.g. Basmati, IR64",
+        labelStudent: "Student Name (Optional)",
+        placeholderStudent: "Your full name",
+        labelLocation: "Live Location",
+        btnGetLocation: "Get Location",
+        placeholderLocation: "Click 'Get Location' to capture coordinates",
+        uploadFileTitle: "Upload File",
+        uploadFileDesc: "Choose from gallery",
+        btnClearAll: "Clear All",
+        btnSubmit: "Submit Data",
+        statusPreparing: "Preparing...",
+        guideTitle: "How to click the images of the rice leafs",
+        guideStep1: "<strong>Step 1:</strong> Open your Camera App settings and turn ON the <strong>\"Save Location\"</strong> or <strong>\"Location Tags\"</strong> setting. This ensures the coordinates are attached to your photos before you click them.",
+        guideStep2: "<strong>Step 2:</strong> Ensure the <strong>rice leaf blade</strong> is clearly in focus and fills the frame.",
+        guideStep3: "<strong>Step 3:</strong> Use natural daylight without severe camera flash or dark shadows.",
+        guideStep4: "<strong>Step 4:</strong> Capture both sides of diseased lesions when evident.",
+        guideStep5: "<strong>Step 5:</strong> Avoid capturing hands, soil, tools, or non-rice plants in the background.",
+        guideStep6: "<strong>Step 6:</strong> For best results, place the leaf on a flat, neutral background if possible, or hold it steady.",
+        guideSample: "Sample Reference Images",
+        contactTitle: "Contact & Support",
+        contactDesc: "If you are getting problems while uploading the images or any other issue then I will be able to help you. Feel free to reach out to me:",
+        footerText: "RiceGuard AI 2.0 Data Collection Portal &copy; 2026"
+      },
+      mr: {
+        navAbout: "नमुने का?",
+        navUpload: "माहिती अपलोड करा",
+        navGuide: "फोटो मार्गदर्शक",
+        navContact: "संपर्क",
+        heroTitle: "आम्हाला नमुने का हवे आहेत?",
+        heroDesc: "आम्ही भाताच्या पानांचे रोग लवकर ओळखण्यासाठी शेतकऱ्यांना मदत करणारे एक स्मार्ट AI टूल बनवत आहोत. फक्त एक फोटो काढून, शेतकरी त्यांच्या पिकावर कोणता रोग आहे, तो किती गंभीर आहे आणि त्यासाठी कोणते उपचार किंवा खते आवश्यक आहेत हे नक्की पाहू शकतील. हे टूल अचूक बनवण्यासाठी, आम्हाला भाताच्या पानांचे प्रत्यक्ष फोटो गोळा करण्यासाठी तुमच्या मदतीची आवश्यकता आहे. तुमच्या योगदानामुळे, आम्ही शेतकऱ्यांना रोग लवकर ओळखण्यासाठी, वेगाने पावले उचलण्यासाठी आणि त्यांचे पीक वाचवण्यासाठी सक्षम करू शकतो.",
+        formTitle: "माहिती संकलन फॉर्म",
+        formDesc: "कृपया खालील तपशील द्या आणि डेटासेटमध्ये योगदान देण्यासाठी भाताच्या पानांचे फोटो अपलोड करा.",
+        labelVillage: "गावाचे नाव",
+        placeholderVillage: "उदा. रामपूर",
+        labelRice: "भाताच्या जातीचे नाव",
+        placeholderRice: "उदा. बासमती, आयआर६४",
+        labelStudent: "विद्यार्थ्याचे नाव (पर्यायी)",
+        placeholderStudent: "तुमचे पूर्ण नाव",
+        labelLocation: "सध्याचे ठिकाण",
+        btnGetLocation: "ठिकाण मिळवा",
+        placeholderLocation: "निर्देशांक कॅप्चर करण्यासाठी 'ठिकाण मिळवा' वर क्लिक करा",
+        uploadFileTitle: "फाईल अपलोड करा",
+        uploadFileDesc: "गॅलरीमधून निवडा",
+        btnClearAll: "सर्व काढा",
+        btnSubmit: "माहिती सबमिट करा",
+        statusPreparing: "तयार करत आहे...",
+        guideTitle: "भाताच्या पानांचे फोटो कसे काढावेत",
+        guideStep1: "<strong>पायरी १:</strong> तुमच्या कॅमेरा ॲपच्या सेटिंग्ज उघडा आणि <strong>\"Save Location\"</strong> किंवा <strong>\"Location Tags\"</strong> सेटिंग चालू करा. यामुळे तुम्ही फोटो काढण्यापूर्वी निर्देशांकाची नोंद फोटोत होईल.",
+        guideStep2: "<strong>पायरी २:</strong> <strong>भाताचे पान</strong> स्पष्टपणे फोकसमध्ये असल्याची आणि फ्रेममध्ये पूर्ण भरल्याची खात्री करा.",
+        guideStep3: "<strong>पायरी ३:</strong> कॅमेरा फ्लॅश किंवा गडद सावल्यांशिवाय नैसर्गिक प्रकाशाचा वापर करा.",
+        guideStep4: "<strong>पायरी ४:</strong> रोगग्रस्त भाग स्पष्ट असल्यास पानांच्या दोन्ही बाजूंचे फोटो काढा.",
+        guideStep5: "<strong>पायरी ५:</strong> पार्श्वभूमीत हात, माती, साधने किंवा भाताव्यतिरिक्त इतर झाडे येऊ देऊ नका.",
+        guideStep6: "<strong>पायरी ६:</strong> चांगल्या परिणामांसाठी, शक्य असल्यास पान एका सपाट, तटस्थ पृष्ठभागावर ठेवा किंवा ते स्थिर धरा.",
+        guideSample: "नमुना संदर्भ चित्रे",
+        contactTitle: "संपर्क आणि मदत",
+        contactDesc: "तुम्हाला फोटो अपलोड करताना काही समस्या येत असल्यास किंवा इतर कोणतीही अडचण असल्यास, मी तुम्हाला मदत करू शकेन. माझ्याशी मोकळेपणाने संपर्क साधा:",
+        footerText: "RiceGuard AI 2.0 माहिती संकलन पोर्टल &copy; २०२६"
+      }
+    };
+
+    function changeLanguage(lang) {
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (translations[lang] && translations[lang][key]) {
+          el.placeholder = translations[lang][key];
+        }
+      });
     }
   </script>
 </body>
